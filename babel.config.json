@@ -1,0 +1,47 @@
+{
+    "presets": [
+        [
+            "@babel/preset-typescript"
+        ],
+        [
+            "@babel/preset-react",
+            {
+                "runtime": "automatic",
+                "development": true
+            }
+        ],
+        [
+            "@babel/preset-env",
+            {
+                "useBuiltIns": "entry",
+                "corejs": {
+                    "version": "3.20",
+                    "proposals": true
+                }
+            }
+        ]
+    ],
+    "plugins": [
+        [
+            "@babel/plugin-transform-runtime",
+            {
+                "corejs": 3,
+                "version": "7.16.8"
+            }
+        ],
+        [
+            "@babel/parser"
+        ],
+        [
+            "@babel/core"
+        ],
+        [
+            "@babel/register"
+        ],
+        "@babel/plugin-proposal-export-default-from",
+        "@babel/plugin-proposal-function-sent",
+        "@babel/plugin-proposal-throw-expressions",
+        "@babel/plugin-transform-react-constant-elements",
+        "@babel/plugin-transform-strict-mode"
+    ]
+}
