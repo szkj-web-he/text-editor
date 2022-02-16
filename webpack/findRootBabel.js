@@ -1,0 +1,63 @@
+
+/**
+ * 加载babel的默认配置
+ * 当出现自定义的babel配置文件时 取消默认配置
+ */
+const fs = require("fs");
+const path = require("path");
+const rootPath = require("./rootPath");
+
+const rootDirList = fs.readdirSync(rootPath);
+/**
+ * 找自定义的配置文件
+ */
+const configFile = rootDirList.find((item) =>
+    [
+        "babel.config.json",
+        ".babelrc.json",
+        "babel.config.js",
+        ".babelrc.js",
+        ".babelrc.mjs",
+        "babel.config.mjs",
+    ].includes(item)
+);
+
+const BabelConfig = configFile
+    ? {
+          configFile: path.join(rootPath, "/", configFile),
+          "cacheDirectory": process.env.NODE_ENV === "development",
+      }
+    : {
+          targets: "> 0.25%",
+          "presets": [
+              [
+                  "@babel/preset-env",
+                  {
+                      "useBuiltIns": "entry",
+                      "targets": {
+                          "node": "current",
+                      },
+                      "corejs": {
+                          "version": "3.20",
+                          "proposals": true,
+                      },
+                  },
+              ],
+
+              [
+                  "@babel/preset-react",
+                  {
+                      "runtime": "automatic",
+                  },
+              ],
+              "@babel/preset-typescript",
+          ],
+          "plugins": [
+              "@babel/plugin-transform-runtime",
+              "@babel/plugin-proposal-throw-expressions",
+              "@babel/plugin-transform-react-constant-elements",
+          ],
+          "cacheDirectory": process.env.NODE_ENV === "development",
+      };
+
+module.exports = BabelConfig;
