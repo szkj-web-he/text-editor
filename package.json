@@ -1,6 +1,6 @@
 {
     "name": "test-bin-he2",
-    "version": "0.0.38",
+    "version": "0.0.44",
     "dependencies": {
         "@babel/plugin-proposal-throw-expressions": "^7.16.7",
         "@babel/plugin-transform-react-constant-elements": "^7.16.7",

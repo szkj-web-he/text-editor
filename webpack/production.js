@@ -1,8 +1,8 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
-const CompressionPlugin = require("compression-webpack-plugin");
-const { entry, plugins, moduleOption, resolve, output } = require("./common");
-const webpack = require("webpack");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const { entry, plugins, moduleOption, resolve, output } = require('./common');
+const webpack = require('webpack');
 
 const rules = moduleOption.rules;
 moduleOption.rules = [
@@ -14,23 +14,25 @@ moduleOption.rules = [
                 loader: MiniCssExtractPlugin.loader,
             },
             {
-                loader: "css-loader",
+                loader: 'css-loader',
                 options: {
                     importLoaders: 1,
                     modules: {
-                        localIdentName: "[local]",
+                        localIdentName: '[local]',
                     },
                 },
             },
 
             {
-                loader: "sass-loader",
+                loader: 'sass-loader',
             },
         ],
     },
 ];
 
 const command = process.argv[process.argv.length - 1];
+
+const isBuildDev = command.startsWith('build-dev');
 
 // webpack.Configuration
 const config = {
@@ -39,42 +41,40 @@ const config = {
     output: {
         ...output,
         ...{
-            chunkFilename: "js/[name].[contenthash].js",
-            filename: "js/[name].[contenthash].js",
+            chunkFilename: 'js/[name].[contenthash].js',
+            filename: 'js/[name].[contenthash].js',
         },
     },
     plugins: [
         ...plugins,
-        new MiniCssExtractPlugin({ filename: "css/[name].[contenthash].css" }),
-        new CompressionPlugin({ test: /\.js(\?.*)?$/i, algorithm: "gzip" }),
+        new MiniCssExtractPlugin({ filename: 'css/[name].[contenthash].css' }),
+        new CompressionPlugin({ test: /\.js(\?.*)?$/i, algorithm: 'gzip' }),
         new webpack.DefinePlugin({
-            "process.env": command.startsWith("build-dev")
-                ? { PRO_DEV: "true" }
-                : {},
+            'process.env': isBuildDev ? { PRO_DEV: 'true' } : {},
         }),
     ],
     module: moduleOption,
-    mode: "production",
-    devtool: "source-map",
+    mode: 'production',
+    devtool: 'source-map',
     optimization: {
-        chunkIds: "total-size",
+        chunkIds: 'total-size',
         mangleWasmImports: true,
-        moduleIds: "size",
+        moduleIds: 'size',
         removeAvailableModules: true,
-        runtimeChunk: "single",
+        runtimeChunk: 'single',
         minimizer: [
             new TerserPlugin({
                 include: /(@datareachable|@possie-engine)/,
                 terserOptions: {
                     compress: {
-                        drop_console: true,
-                        drop_debugger: true,
+                        drop_console: !isBuildDev,
+                        drop_debugger: !isBuildDev,
                     },
                 },
             }),
         ],
         splitChunks: {
-            chunks: "all",
+            chunks: 'all',
         },
     },
 };
