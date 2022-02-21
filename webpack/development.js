@@ -65,9 +65,13 @@ const config = {
     cache: {
         type: 'filesystem',
         allowCollectingMemory: true,
+        compression: 'gzip',
+        memoryCacheUnaffected: true,
+        store: 'pack',
     },
+    experiments: { cacheUnaffected: true },
     snapshot: {
-        managedPaths: [exclude],
+        managedPaths: [],
     },
 
     module: moduleOption,
