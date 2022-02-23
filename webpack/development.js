@@ -80,6 +80,12 @@ const config = {
         host: '0.0.0.0',
         port: 'auto',
         historyApiFallback: true,
+        client: {
+            overlay: {
+                errors: true,
+                warnings: false,
+            },
+        },
         watchFiles: [
             path.join(rootPath, '/node_modules/', '@datareachable'),
             path.join(rootPath, '/node_modules/', '@possie-engine'),
