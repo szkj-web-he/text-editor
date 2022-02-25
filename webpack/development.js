@@ -25,11 +25,14 @@ moduleOption.rules = [
             {
                 loader: 'css-loader',
                 options: {
-                    importLoaders: 1,
+                    importLoaders: 2,
                     modules: {
                         localIdentName: '[local]',
                     },
                 },
+            },
+            {
+                loader: 'resolve-url-loader',
             },
             {
                 loader: 'sass-loader',
