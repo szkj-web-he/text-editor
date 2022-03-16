@@ -21,6 +21,13 @@ const entry = {
 const moduleOption = {
     rules: [
         {
+            test: '/.ico/',
+            type: 'asset/source',
+            generator: {
+                filename: '/[name][query]',
+            },
+        },
+        {
             test: /\.(png|jpe?g|gif|pdf|eot|ttf|svg)/,
             type: 'asset',
             generator: {
