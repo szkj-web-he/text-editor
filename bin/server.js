@@ -1,28 +1,31 @@
 #!/usr/bin/env node
-const fs = require("fs");
-const path = require("path");
-const { merge } = require("webpack-merge");
-const webpackDevServer = require("webpack-dev-server");
-const webpack = require("webpack");
+const fs = require('fs');
+const path = require('path');
+const { merge } = require('webpack-merge');
+const webpackDevServer = require('webpack-dev-server');
+const webpack = require('webpack');
 
-const rootPath = require("../webpack/rootPath");
+const getPackage = require('./createReactLib');
+const addLibCommand = require('./addLibCommand');
+
+const rootPath = require('../webpack/rootPath');
 
 const rootDirList = fs.readdirSync(rootPath);
 
+addLibCommand();
+
 const runServer = async (server) => {
-    console.log("Starting server...");
+    console.log('Starting server...');
     await server.start();
 };
 
 const command = process.argv[process.argv.length - 1];
 
 const getConfig = (config) => {
-    const configFile = rootDirList.find(
-        (item) => item === "datareachable.config.js"
-    );
+    const configFile = rootDirList.find((item) => item === 'datareachable.config.js');
 
     if (configFile) {
-        const data = require(path.join(rootPath, "/datareachable.config.js"));
+        const data = require(path.join(rootPath, '/datareachable.config.js'));
         config = merge(config, data);
     }
 
@@ -31,10 +34,10 @@ const getConfig = (config) => {
 };
 
 const setAnalysisConfig = (config) => {
-    if (command.includes("analysis")) {
-        const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+    if (command.includes('analysis')) {
+        const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
         const smp = new SpeedMeasurePlugin({
-            outputFormat: "humanVerbose",
+            outputFormat: 'humanVerbose',
             loaderTopFiles: 10,
         });
 
@@ -45,8 +48,8 @@ const setAnalysisConfig = (config) => {
     }
 };
 
-if (command.startsWith("dev")) {
-    const config = getConfig(require("../webpack/development"));
+if (command.startsWith('dev')) {
+    const config = getConfig(require('../webpack/development'));
 
     const devConfig = config.devServer;
 
@@ -57,8 +60,8 @@ if (command.startsWith("dev")) {
     const server = new webpackDevServer(devConfig, compiler);
 
     runServer(server);
-} else if (command.startsWith("build")) {
-    const config = getConfig(require("../webpack/production"));
+} else if (command.startsWith('build')) {
+    const config = getConfig(require('../webpack/production'));
 
     delete config.devServer;
 
@@ -71,8 +74,10 @@ if (command.startsWith("dev")) {
             console.log(
                 stats.toString({
                     colors: true,
-                })
+                }),
             );
         }
     });
+} else if (command.startsWith('lib')) {
+    getPackage();
 }
