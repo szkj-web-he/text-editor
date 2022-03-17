@@ -5,7 +5,7 @@
 const fs = require('fs');
 const path = require('path');
 const rootPath = require('./rootPath');
-
+const command = require('./command');
 const rootDirList = fs.readdirSync(rootPath);
 /**
  * 找自定义的配置文件
@@ -59,7 +59,7 @@ const BabelConfig = configFile
               '@babel/preset-typescript',
           ],
           plugins,
-          cacheDirectory: process.env.NODE_ENV === 'development',
+          cacheDirectory: command.isDev,
           cacheCompression: false,
       };
 

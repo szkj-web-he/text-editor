@@ -3,46 +3,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const { entry, plugins, moduleOption, resolve, output } = require('./common');
 const webpack = require('webpack');
-
-const rules = moduleOption.rules;
-moduleOption.rules = [
-    ...rules,
-    {
-        test: /\.s?css$/,
-        use: [
-            {
-                loader: MiniCssExtractPlugin.loader,
-            },
-            {
-                loader: 'css-loader',
-                options: {
-                    importLoaders: 2,
-                    modules: {
-                        localIdentName: '[local]',
-                    },
-                },
-            },
-            {
-                loader: 'postcss-loader',
-                options: {
-                    postcssOptions: {
-                        config: path.resolve(__dirname, '../postcss.config.js'),
-                    },
-                },
-            },
-            {
-                loader: 'resolve-url-loader',
-            },
-            {
-                loader: 'sass-loader',
-            },
-        ],
-    },
-];
-
-const command = process.argv[process.argv.length - 1];
-
-const isBuildDev = command.startsWith('build-dev');
+const command = require('./command');
 
 // webpack.Configuration
 const config = {
@@ -60,12 +21,12 @@ const config = {
         new MiniCssExtractPlugin({ filename: 'css/[name].[contenthash].css' }),
         new CompressionPlugin({ test: /\.js(\?.*)?$/i, algorithm: 'gzip' }),
         new webpack.DefinePlugin({
-            'process.env': isBuildDev ? { PRO_DEV: 'true' } : {},
+            'process.env': command.isBuildDev ? { PRO_DEV: 'true' } : {},
         }),
     ],
     module: moduleOption,
     mode: 'production',
-    devtool: 'source-map',
+    devtool: 'hidden-source-map',
     optimization: {
         chunkIds: 'total-size',
         mangleWasmImports: true,
@@ -80,8 +41,8 @@ const config = {
                 extractComments: 'all',
                 terserOptions: {
                     compress: {
-                        drop_console: !isBuildDev,
-                        drop_debugger: !isBuildDev,
+                        drop_console: !command.isProDev,
+                        drop_debugger: !command.isProDev,
                     },
                 },
             }),

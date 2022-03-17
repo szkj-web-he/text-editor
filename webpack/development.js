@@ -11,48 +11,6 @@ const path = require('path');
 
 */
 
-const rules = moduleOption.rules;
-
-moduleOption.rules = [
-    ...rules,
-    {
-        test: /\.(sa|sc|c)ss$/,
-        exclude,
-        enforce: 'pre',
-        use: [
-            {
-                loader: 'style-loader',
-            },
-            {
-                loader: 'css-loader',
-                options: {
-                    importLoaders: 2,
-                    modules: {
-                        localIdentName: '[local]',
-                    },
-                },
-            },
-            {
-                loader: 'postcss-loader',
-                options: {
-                    postcssOptions: {
-                        config: path.resolve(__dirname, '../postcss.config.js'),
-                    },
-                },
-            },
-            {
-                loader: 'resolve-url-loader',
-            },
-            {
-                loader: 'sass-loader',
-            },
-            {
-                loader: 'source-map-loader',
-            },
-        ],
-    },
-];
-
 const config = {
     entry,
     resolve,
@@ -68,8 +26,7 @@ const config = {
         ignored: exclude,
     },
     mode: 'development',
-    // eval-source-map
-    devtool: 'eval-cheap-module-source-map',
+    devtool: 'eval-cheap-source-map',
     optimization: {
         runtimeChunk: true,
         minimize: false,
@@ -80,11 +37,16 @@ const config = {
     cache: {
         type: 'filesystem',
         allowCollectingMemory: true,
-        compression: 'gzip',
         memoryCacheUnaffected: true,
         store: 'pack',
+        buildDependencies: {
+            // This makes all dependencies of this file - build dependencies
+            config: [__filename],
+            // 默认情况下 webpack 与 loader 是构建依赖。
+        },
     },
     experiments: { cacheUnaffected: true },
+
     snapshot: {
         managedPaths: [],
     },
@@ -100,6 +62,9 @@ const config = {
                 errors: true,
                 warnings: false,
             },
+        },
+        static: {
+            directory: path.join(rootPath, './public'),
         },
         watchFiles: [
             path.join(rootPath, '/node_modules/', '@datareachable'),

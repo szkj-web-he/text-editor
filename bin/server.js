@@ -4,6 +4,7 @@ const path = require('path');
 const { merge } = require('webpack-merge');
 const webpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
+const command = require('../webpack/command');
 
 const getPackage = require('./createReactLib');
 const addLibCommand = require('./addLibCommand');
@@ -21,8 +22,6 @@ const runServer = async (server) => {
     await server.start();
 };
 
-const command = process.argv[process.argv.length - 1];
-
 const getConfig = (config) => {
     const configFile = rootDirList.find((item) => item === 'datareachable.config.js');
 
@@ -36,7 +35,7 @@ const getConfig = (config) => {
 };
 
 const setAnalysisConfig = (config) => {
-    if (command.includes('analysis')) {
+    if (command.isAnalysis) {
         const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
         const smp = new SpeedMeasurePlugin({
             outputFormat: 'humanVerbose',
@@ -50,7 +49,7 @@ const setAnalysisConfig = (config) => {
     }
 };
 
-if (command.startsWith('dev')) {
+if (command.isDev) {
     const config = getConfig(require('../webpack/development'));
 
     const devConfig = config.devServer;
@@ -66,7 +65,7 @@ if (command.startsWith('dev')) {
         const serveType = server.options.server.type;
         c.exec(`start ${serveType}://localhost:${port}`);
     });
-} else if (command.startsWith('build')) {
+} else if (command.isPro) {
     const config = getConfig(require('../webpack/production'));
 
     delete config.devServer;
@@ -84,6 +83,6 @@ if (command.startsWith('dev')) {
             );
         }
     });
-} else if (command.startsWith('lib')) {
+} else if (command.isLib) {
     getPackage();
 }

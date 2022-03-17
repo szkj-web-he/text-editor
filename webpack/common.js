@@ -5,6 +5,8 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const rootPath = require('./rootPath');
 const BabelConfig = require('./findRootBabel');
 const exclude = require('./exclude');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const command = require('./command');
 
 // webpack.Entry
 /**
@@ -56,8 +58,40 @@ const moduleOption = {
                     loader: 'babel-loader',
                     options: BabelConfig,
                 },
+            ],
+        },
+        {
+            test: /\.(sa|sc|c)ss$/,
+            exclude,
+            use: [
                 {
-                    loader: 'source-map-loader',
+                    loader: command.isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+                },
+                {
+                    loader: 'css-loader',
+                    options: {
+                        importLoaders: 2,
+                        modules: {
+                            localIdentName: '[local]',
+                        },
+                    },
+                },
+                {
+                    loader: 'postcss-loader',
+                    options: {
+                        postcssOptions: {
+                            config: path.resolve(__dirname, '../postcss.config.js'),
+                        },
+                    },
+                },
+                {
+                    loader: 'resolve-url-loader',
+                },
+                {
+                    loader: 'sass-loader',
+                    options: {
+                        sourceMap: true,
+                    },
                 },
             ],
         },
@@ -89,6 +123,7 @@ const plugins = [
             'theme-color': '#2F3BA2',
         },
     }),
+
     new ForkTsCheckerWebpackPlugin({
         eslint: {
             enabled: true,
