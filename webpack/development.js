@@ -16,8 +16,9 @@ const rules = moduleOption.rules;
 moduleOption.rules = [
     ...rules,
     {
-        test: /\.s?css$/,
+        test: /\.(sa|sc|c)ss$/,
         exclude,
+        enforce: 'pre',
         use: [
             {
                 loader: 'style-loader',
@@ -32,10 +33,21 @@ moduleOption.rules = [
                 },
             },
             {
+                loader: 'postcss-loader',
+                options: {
+                    postcssOptions: {
+                        config: path.resolve(__dirname, '../postcss.config.js'),
+                    },
+                },
+            },
+            {
                 loader: 'resolve-url-loader',
             },
             {
                 loader: 'sass-loader',
+            },
+            {
+                loader: 'source-map-loader',
             },
         ],
     },

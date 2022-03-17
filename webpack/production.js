@@ -23,6 +23,14 @@ moduleOption.rules = [
                 },
             },
             {
+                loader: 'postcss-loader',
+                options: {
+                    postcssOptions: {
+                        config: path.resolve(__dirname, '../postcss.config.js'),
+                    },
+                },
+            },
+            {
                 loader: 'resolve-url-loader',
             },
             {
@@ -64,9 +72,12 @@ const config = {
         moduleIds: 'size',
         removeAvailableModules: true,
         runtimeChunk: 'single',
+        minimize: true,
         minimizer: [
             new TerserPlugin({
+                minify: TerserPlugin.esbuildMinify,
                 include: /(@datareachable|@possie-engine)/,
+                extractComments: 'all',
                 terserOptions: {
                     compress: {
                         drop_console: !isBuildDev,

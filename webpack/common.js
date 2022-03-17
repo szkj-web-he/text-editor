@@ -21,14 +21,21 @@ const entry = {
 const moduleOption = {
     rules: [
         {
-            test: '/.ico/',
+            test: '/.ico$/',
             type: 'asset/source',
             generator: {
                 filename: '/[name][query]',
             },
         },
         {
-            test: /\.(png|jpe?g|gif|pdf|eot|ttf|svg)/,
+            test: '/.(woff|woff2|pdf|eot|ttf)$/',
+            type: 'asset/source',
+            generator: {
+                filename: 'assets/[name][query]',
+            },
+        },
+        {
+            test: /.(png|jpe?g|gif|svg)$/,
             type: 'asset',
             generator: {
                 filename: 'assets/[hash][ext][query]',
@@ -41,12 +48,16 @@ const moduleOption = {
         },
 
         {
-            test: /\.(j|t)sx?$/,
+            test: /.(j|t)sx?$/,
             exclude,
+            enforce: 'pre',
             use: [
                 {
                     loader: 'babel-loader',
                     options: BabelConfig,
+                },
+                {
+                    loader: 'source-map-loader',
                 },
             ],
         },

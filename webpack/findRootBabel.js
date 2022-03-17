@@ -21,6 +21,12 @@ const configFile = rootDirList.find((item) =>
     ].includes(item),
 );
 
+const plugins = [
+    '@babel/plugin-transform-runtime',
+    '@babel/plugin-proposal-throw-expressions',
+    '@babel/plugin-transform-react-constant-elements',
+];
+
 const BabelConfig = configFile
     ? {
           configFile: path.join(rootPath, '/', configFile),
@@ -40,6 +46,7 @@ const BabelConfig = configFile
                           version: '3.20',
                           proposals: true,
                       },
+                      browserslistEnv: '> 0.1%',
                   },
               ],
 
@@ -51,11 +58,7 @@ const BabelConfig = configFile
               ],
               '@babel/preset-typescript',
           ],
-          plugins: [
-              '@babel/plugin-transform-runtime',
-              '@babel/plugin-proposal-throw-expressions',
-              '@babel/plugin-transform-react-constant-elements',
-          ],
+          plugins,
           cacheDirectory: process.env.NODE_ENV === 'development',
           cacheCompression: false,
       };

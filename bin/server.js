@@ -12,6 +12,8 @@ const rootPath = require('../webpack/rootPath');
 
 const rootDirList = fs.readdirSync(rootPath);
 
+const c = require('child_process');
+
 addLibCommand();
 
 const runServer = async (server) => {
@@ -59,7 +61,11 @@ if (command.startsWith('dev')) {
 
     const server = new webpackDevServer(devConfig, compiler);
 
-    runServer(server);
+    runServer(server).then(() => {
+        const port = server.options.port;
+        const serveType = server.options.server.type;
+        c.exec(`start ${serveType}://localhost:${port}`);
+    });
 } else if (command.startsWith('build')) {
     const config = getConfig(require('../webpack/production'));
 
