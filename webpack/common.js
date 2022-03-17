@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const rootPath = require('./rootPath');
-const BabelConfig = require('./findRootBabel');
 const exclude = require('./exclude');
 
 // webpack.Entry
@@ -46,15 +45,70 @@ const moduleOption = {
                 },
             },
         },
-
         {
-            test: /.(j|t)sx?$/,
+            test: /.tsx$/,
             exclude,
             enforce: 'pre',
             use: [
                 {
-                    loader: 'babel-loader',
-                    options: BabelConfig,
+                    loader: 'esbuild-loader',
+                    options: {
+                        loader: 'tsx',
+                        target: 'es2015',
+                        tsconfigRaw: require(path.join(rootPath, './tsconfig.json')),
+                    },
+                },
+                {
+                    loader: 'source-map-loader',
+                },
+            ],
+        },
+        {
+            test: /.ts$/,
+            exclude,
+            enforce: 'pre',
+            use: [
+                {
+                    loader: 'esbuild-loader',
+                    options: {
+                        loader: 'ts',
+                        target: 'es2015',
+                        tsconfigRaw: require(path.join(rootPath, './tsconfig.json')),
+                    },
+                },
+                {
+                    loader: 'source-map-loader',
+                },
+            ],
+        },
+        {
+            test: /.jsx$/,
+            exclude,
+            enforce: 'pre',
+            use: [
+                {
+                    loader: 'esbuild-loader',
+                    options: {
+                        loader: 'jsx',
+                        target: 'es2015',
+                    },
+                },
+                {
+                    loader: 'source-map-loader',
+                },
+            ],
+        },
+        {
+            test: /.js$/,
+            exclude,
+            enforce: 'pre',
+            use: [
+                {
+                    loader: 'esbuild-loader',
+                    options: {
+                        loader: 'js',
+                        target: 'es2015',
+                    },
                 },
                 {
                     loader: 'source-map-loader',
@@ -89,6 +143,7 @@ const plugins = [
             'theme-color': '#2F3BA2',
         },
     }),
+
     new ForkTsCheckerWebpackPlugin({
         eslint: {
             enabled: true,

@@ -12,7 +12,7 @@ const rootPath = require('../webpack/rootPath');
 
 const rootDirList = fs.readdirSync(rootPath);
 
-const c = require('child_process');
+const browser = require('child_process');
 
 addLibCommand();
 
@@ -64,7 +64,7 @@ if (command.startsWith('dev')) {
     runServer(server).then(() => {
         const port = server.options.port;
         const serveType = server.options.server.type;
-        c.exec(`start ${serveType}://localhost:${port}`);
+        browser.exec(`start ${serveType}://localhost:${port}`);
     });
 } else if (command.startsWith('build')) {
     const config = getConfig(require('../webpack/production'));

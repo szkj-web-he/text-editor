@@ -32,6 +32,7 @@ moduleOption.rules = [
                     },
                 },
             },
+
             {
                 loader: 'postcss-loader',
                 options: {
@@ -46,6 +47,7 @@ moduleOption.rules = [
             {
                 loader: 'sass-loader',
             },
+
             {
                 loader: 'source-map-loader',
             },
@@ -91,6 +93,7 @@ const config = {
 
     module: moduleOption,
     devServer: {
+        contentBase: path.join(rootPath, './dist'),
         compress: true,
         host: '0.0.0.0',
         port: 'auto',
