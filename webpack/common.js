@@ -62,7 +62,6 @@ const moduleOption = {
         },
         {
             test: /\.(sa|sc|c)ss$/,
-            exclude,
             use: [
                 {
                     loader: command.isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
