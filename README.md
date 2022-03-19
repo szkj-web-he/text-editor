@@ -2,8 +2,6 @@
 
 ## 特点
 1. webpack@5
-2. react@17
-3. react-router@6
 4. ts
 5. eslint
 6. sass

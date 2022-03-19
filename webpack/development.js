@@ -8,8 +8,9 @@ const path = require('path');
  type ConfigProps = webpack.Configuration & {
     devServer: webpackDevServer.Configuration;
 };
-
 */
+
+
 
 const config = {
     entry,
@@ -46,10 +47,10 @@ const config = {
         },
     },
     experiments: { cacheUnaffected: true },
-
-    snapshot: {
-        managedPaths: [],
-    },
+    //测 包文件时打开
+    // snapshot: {
+    //     managedPaths:[],
+    // },
 
     module: moduleOption,
     devServer: {
@@ -66,10 +67,6 @@ const config = {
         static: {
             directory: path.join(rootPath, './public'),
         },
-        watchFiles: [
-            path.join(rootPath, '/node_modules/', '@datareachable'),
-            path.join(rootPath, '/node_modules/', '@possie-engine'),
-        ],
     },
 };
 

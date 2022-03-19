@@ -4,6 +4,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const { entry, plugins, moduleOption, resolve, output } = require('./common');
 const webpack = require('webpack');
 const command = require('./command');
+const EncodingPlugin = require('webpack-encoding-plugin');
 
 // webpack.Configuration
 const config = {
@@ -23,6 +24,9 @@ const config = {
         new webpack.DefinePlugin({
             'process.env': command.isBuildDev ? { PRO_DEV: 'true' } : {},
         }),
+        new EncodingPlugin({
+            encoding: 'UTF-8'
+        }),
     ],
     module: moduleOption,
     mode: 'production',
@@ -36,13 +40,10 @@ const config = {
         minimize: true,
         minimizer: [
             new TerserPlugin({
-                minify: TerserPlugin.esbuildMinify,
-                include: /(@datareachable|@possie-engine)/,
                 extractComments: 'all',
                 terserOptions: {
                     compress: {
-                        drop_console: !command.isProDev,
-                        drop_debugger: !command.isProDev,
+                        drop_console: !(command.isProDev),
                     },
                 },
             }),
