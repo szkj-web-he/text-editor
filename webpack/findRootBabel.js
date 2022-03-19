@@ -29,38 +29,38 @@ const plugins = [
 
 const BabelConfig = configFile
     ? {
-          configFile: path.join(rootPath, '/', configFile),
-          cacheDirectory: process.env.NODE_ENV === 'development',
-      }
+        configFile: path.join(rootPath, '/', configFile),
+        cacheDirectory: command.isDev,
+    }
     : {
-          targets: '> 0.25%',
-          presets: [
-              [
-                  '@babel/preset-env',
-                  {
-                      useBuiltIns: 'entry',
-                      targets: {
-                          node: 'current',
-                      },
-                      corejs: {
-                          version: '3.20',
-                          proposals: true,
-                      },
-                      browserslistEnv: '> 0.1%',
-                  },
-              ],
+        targets: '> 0.25%',
+        presets: [
+            [
+                '@babel/preset-env',
+                {
+                    useBuiltIns: 'entry',
+                    targets: {
+                        node: 'current',
+                    },
+                    corejs: {
+                        version: '3.20',
+                        proposals: true,
+                    },
+                    browserslistEnv: '> 0.1%',
+                },
+            ],
 
-              [
-                  '@babel/preset-react',
-                  {
-                      runtime: 'automatic',
-                  },
-              ],
-              '@babel/preset-typescript',
-          ],
-          plugins,
-          cacheDirectory: command.isDev,
-          cacheCompression: false,
-      };
+            [
+                '@babel/preset-react',
+                {
+                    runtime: 'automatic',
+                },
+            ],
+            '@babel/preset-typescript',
+        ],
+        plugins,
+        cacheDirectory: command.isDev,
+        cacheCompression: false,
+    };
 
 module.exports = BabelConfig;

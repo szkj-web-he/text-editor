@@ -1,32 +1,28 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const { merge } = require('webpack-merge');
-const webpackDevServer = require('webpack-dev-server');
-const webpack = require('webpack');
-const command = require('../webpack/command');
+const fs = require("fs");
+const path = require("path");
+const { merge } = require("webpack-merge");
+const webpackDevServer = require("webpack-dev-server");
+const webpack = require("webpack");
 
-const getPackage = require('./createReactLib');
-const addLibCommand = require('./addLibCommand');
-
-const rootPath = require('../webpack/rootPath');
+const rootPath = require("../webpack/rootPath");
 
 const rootDirList = fs.readdirSync(rootPath);
 
-const c = require('child_process');
-
-addLibCommand();
-
 const runServer = async (server) => {
-    console.log('Starting server...');
+    console.log("Starting server...");
     await server.start();
 };
 
+const command = process.argv[process.argv.length - 1];
+
 const getConfig = (config) => {
-    const configFile = rootDirList.find((item) => item === 'datareachable.config.js');
+    const configFile = rootDirList.find(
+        (item) => item === "datareachable.config.js"
+    );
 
     if (configFile) {
-        const data = require(path.join(rootPath, '/datareachable.config.js'));
+        const data = require(path.join(rootPath, "/datareachable.config.js"));
         config = merge(config, data);
     }
 
@@ -35,10 +31,10 @@ const getConfig = (config) => {
 };
 
 const setAnalysisConfig = (config) => {
-    if (command.isAnalysis) {
-        const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+    if (command.includes("analysis")) {
+        const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
         const smp = new SpeedMeasurePlugin({
-            outputFormat: 'humanVerbose',
+            outputFormat: "humanVerbose",
             loaderTopFiles: 10,
         });
 
@@ -49,8 +45,8 @@ const setAnalysisConfig = (config) => {
     }
 };
 
-if (command.isDev) {
-    const config = getConfig(require('../webpack/development'));
+if (command.startsWith("dev")) {
+    const config = getConfig(require("../webpack/development"));
 
     const devConfig = config.devServer;
 
@@ -61,12 +57,13 @@ if (command.isDev) {
     const server = new webpackDevServer(devConfig, compiler);
 
     runServer(server).then(() => {
+        const c = require("child_process")
         const port = server.options.port;
         const serveType = server.options.server.type;
         c.exec(`start ${serveType}://localhost:${port}`);
-    });
-} else if (command.isPro) {
-    const config = getConfig(require('../webpack/production'));
+    });;
+} else if (command.startsWith("build")) {
+    const config = getConfig(require("../webpack/production"));
 
     delete config.devServer;
 
@@ -79,10 +76,8 @@ if (command.isDev) {
             console.log(
                 stats.toString({
                     colors: true,
-                }),
+                })
             );
         }
     });
-} else if (command.isLib) {
-    getPackage();
 }
