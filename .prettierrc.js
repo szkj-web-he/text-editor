@@ -4,7 +4,7 @@ module.exports = {
     singleQuote: false,
     printWidth: 100,
     tabWidth: 4,
-    endOfLine: "auto",
+    endOfLine: "lf",
     eslintIntegration: true,
     stylelintIntegration: true,
 };
