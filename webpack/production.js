@@ -1,10 +1,10 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
-const { entry, plugins, moduleOption, resolve, output } = require('./common');
-const webpack = require('webpack');
-const command = require('./command');
-const EncodingPlugin = require('webpack-encoding-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
+const { entry, plugins, moduleOption, resolve, output, experiments } = require("./common");
+const webpack = require("webpack");
+const command = require("./command");
+const EncodingPlugin = require("webpack-encoding-plugin");
 
 // webpack.Configuration
 const config = {
@@ -13,45 +13,46 @@ const config = {
     output: {
         ...output,
         ...{
-            chunkFilename: 'js/[name].[contenthash].js',
-            filename: 'js/[name].[contenthash].js',
+            chunkFilename: "js/[name].[contenthash].js",
+            filename: "js/[name].[contenthash].js",
         },
     },
     plugins: [
         ...plugins,
-        new MiniCssExtractPlugin({ filename: 'css/[name].[contenthash].css' }),
-        new CompressionPlugin({ test: /\.js(\?.*)?$/i, algorithm: 'gzip' }),
+        new MiniCssExtractPlugin({ filename: "css/[name].[contenthash].css" }),
+        new CompressionPlugin({ test: /\.js(\?.*)?$/i, algorithm: "gzip" }),
         new webpack.DefinePlugin({
-            'process.env': command.isBuildDev ? { PRO_DEV: 'true' } : {},
+            "process.env": command.isBuildDev ? { PRO_DEV: "true" } : {},
         }),
         new EncodingPlugin({
-            encoding: 'UTF-8'
+            encoding: "UTF-8",
         }),
     ],
     module: moduleOption,
-    mode: 'production',
-    devtool: 'hidden-source-map',
+    mode: "production",
+    devtool: "hidden-source-map",
     optimization: {
-        chunkIds: 'total-size',
+        chunkIds: "total-size",
         mangleWasmImports: true,
-        moduleIds: 'size',
+        moduleIds: "size",
         removeAvailableModules: true,
-        runtimeChunk: 'single',
+        runtimeChunk: "single",
         minimize: true,
         minimizer: [
             new TerserPlugin({
-                extractComments: 'all',
+                extractComments: "all",
                 terserOptions: {
                     compress: {
-                        drop_console: !(command.isProDev),
+                        drop_console: !command.isProDev,
                     },
                 },
             }),
         ],
         splitChunks: {
-            chunks: 'all',
+            chunks: "all",
         },
     },
+    experiments
 };
 
 module.exports = config;

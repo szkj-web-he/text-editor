@@ -1,21 +1,20 @@
-
-const path = require('path');
-const rootPath = require('./rootPath');
+const path = require("path");
+const rootPath = require("./rootPath");
 
 module.exports = {
-    title: 'dataReachable',
-    template: './public/index.html',
-    favicon: './public/favicon.ico',
+    title: "dataReachable",
+    template: "./public/index.html",
+    favicon: "./public/favicon.ico",
     meta: {
-        viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
-        'apple-mobile-web-app-capable': 'yes',
-        'apple-mobile-web-app-status-bar-style': 'black',
-        'apple-mobile-web-app-title': 'DataReachable',
-        description: 'DataReachable',
-        'theme-color': '#2F3BA2',
+        viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
+        "apple-mobile-web-app-capable": "yes",
+        "apple-mobile-web-app-status-bar-style": "black",
+        "apple-mobile-web-app-title": "DataReachable",
+        description: "DataReachable",
+        "theme-color": "#2F3BA2",
     },
     templateParameters: {
-        'loading': `<style>
+        loading: `<style>
                 * {
                     margin: 0;
                     padding: 0;
@@ -160,6 +159,6 @@ module.exports = {
                         </div>
                     </div>
                 </div>
-            </div>`
+            </div>`,
     },
-}
+};

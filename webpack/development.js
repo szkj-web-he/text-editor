@@ -1,7 +1,7 @@
-const { entry, plugins, moduleOption, resolve, output } = require('./common');
-const exclude = require('./exclude');
-const rootPath = require('./rootPath');
-const path = require('path');
+const { entry, plugins, moduleOption, resolve, output, experiments } = require("./common");
+const exclude = require("./exclude");
+const rootPath = require("./rootPath");
+const path = require("path");
 
 /**
  
@@ -10,8 +10,6 @@ const path = require('path');
 };
 */
 
-
-
 const config = {
     entry,
     resolve,
@@ -19,15 +17,15 @@ const config = {
     output: {
         ...output,
         ...{
-            chunkFilename: 'js/[name].js',
-            filename: 'js/[name].js',
+            chunkFilename: "js/[name].js",
+            filename: "js/[name].js",
         },
     },
     watchOptions: {
         ignored: exclude,
     },
-    mode: 'development',
-    devtool: 'eval-cheap-source-map',
+    mode: "development",
+    devtool: "eval-cheap-source-map",
     optimization: {
         runtimeChunk: true,
         minimize: false,
@@ -36,17 +34,17 @@ const config = {
         splitChunks: false,
     },
     cache: {
-        type: 'filesystem',
+        type: "filesystem",
         allowCollectingMemory: true,
         memoryCacheUnaffected: true,
-        store: 'pack',
+        store: "pack",
         buildDependencies: {
             // This makes all dependencies of this file - build dependencies
             config: [__filename],
             // 默认情况下 webpack 与 loader 是构建依赖。
         },
     },
-    experiments: { cacheUnaffected: true },
+    experiments: Object.assign({}, experiments, { cacheUnaffected: true }),
     //测 包文件时打开
     // snapshot: {
     //     managedPaths:[],
@@ -55,8 +53,8 @@ const config = {
     module: moduleOption,
     devServer: {
         compress: true,
-        host: '0.0.0.0',
-        port: 'auto',
+        host: "0.0.0.0",
+        port: "auto",
         historyApiFallback: true,
         client: {
             overlay: {
@@ -65,7 +63,7 @@ const config = {
             },
         },
         static: {
-            directory: path.join(rootPath, './public'),
+            directory: path.join(rootPath, "./public"),
         },
     },
 };

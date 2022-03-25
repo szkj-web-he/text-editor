@@ -17,9 +17,7 @@ const runServer = async (server) => {
 const command = process.argv[process.argv.length - 1];
 
 const getConfig = (config) => {
-    const configFile = rootDirList.find(
-        (item) => item === "datareachable.config.js"
-    );
+    const configFile = rootDirList.find((item) => item === "datareachable.config.js");
 
     if (configFile) {
         const data = require(path.join(rootPath, "/datareachable.config.js"));
@@ -57,11 +55,11 @@ if (command.startsWith("dev")) {
     const server = new webpackDevServer(devConfig, compiler);
 
     runServer(server).then(() => {
-        const c = require("child_process")
+        const c = require("child_process");
         const port = server.options.port;
         const serveType = server.options.server.type;
         c.exec(`start ${serveType}://localhost:${port}`);
-    });;
+    });
 } else if (command.startsWith("build")) {
     const config = getConfig(require("../webpack/production"));
 
@@ -76,7 +74,7 @@ if (command.startsWith("dev")) {
             console.log(
                 stats.toString({
                     colors: true,
-                })
+                }),
             );
         }
     });

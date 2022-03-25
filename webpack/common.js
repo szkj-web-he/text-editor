@@ -1,13 +1,13 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const rootPath = require('./rootPath');
-const BabelConfig = require('./findRootBabel');
-const exclude = require('./exclude');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const command = require('./command');
-const htmlPlugin = require("./htmlPlugin")
+const path = require("path");
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const rootPath = require("./rootPath");
+const BabelConfig = require("./findRootBabel");
+const exclude = require("./exclude");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const command = require("./command");
+const htmlPlugin = require("./htmlPlugin");
 
 // webpack.Entry
 /**
@@ -17,31 +17,31 @@ const htmlPlugin = require("./htmlPlugin")
  * 做兼容处理
  */
 const entry = {
-    app: ['./src/index.tsx'],
+    app: ["./src/index.tsx"],
 };
 
 //  webpack.ModuleOptions
 const moduleOption = {
     rules: [
         {
-            test: '/.ico$/',
-            type: 'asset/source',
+            test: "/.ico$/",
+            type: "asset/source",
             generator: {
-                filename: '/[name][query]',
+                filename: "/[name][query]",
             },
         },
         {
-            test: '/.(woff|woff2|pdf|eot|ttf)$/',
-            type: 'asset/source',
+            test: "/.(woff|woff2|pdf|eot|ttf)$/",
+            type: "asset/source",
             generator: {
-                filename: 'assets/[name][query]',
+                filename: "assets/[name][query]",
             },
         },
         {
             test: /.(png|jpe?g|gif|svg)$/,
-            type: 'asset',
+            type: "asset",
             generator: {
-                filename: 'assets/[hash][ext][query]',
+                filename: "assets/[hash][ext][query]",
             },
             parser: {
                 dataUrlCondition: {
@@ -53,10 +53,10 @@ const moduleOption = {
         {
             test: /.(j|t)sx?$/,
             exclude,
-            enforce: 'pre',
+            enforce: "pre",
             use: [
                 {
-                    loader: 'babel-loader',
+                    loader: "babel-loader",
                     options: BabelConfig,
                 },
             ],
@@ -65,30 +65,30 @@ const moduleOption = {
             test: /\.(sa|sc|c)ss$/,
             use: [
                 {
-                    loader: command.isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    loader: command.isDev ? "style-loader" : MiniCssExtractPlugin.loader,
                 },
                 {
-                    loader: 'css-loader',
+                    loader: "css-loader",
                     options: {
                         importLoaders: 2,
                         modules: {
-                            localIdentName: '[local]',
+                            localIdentName: "[local]",
                         },
                     },
                 },
                 {
-                    loader: 'postcss-loader',
+                    loader: "postcss-loader",
                     options: {
                         postcssOptions: {
-                            config: path.resolve(__dirname, '../postcss.config.js'),
+                            config: path.resolve(__dirname, "../postcss.config.js"),
                         },
                     },
                 },
                 {
-                    loader: 'resolve-url-loader',
+                    loader: "resolve-url-loader",
                 },
                 {
-                    loader: 'sass-loader',
+                    loader: "sass-loader",
                     options: {
                         sourceMap: true,
                     },
@@ -101,10 +101,10 @@ const moduleOption = {
 // webpack.ResolveOptions
 const resolve = {
     alias: {
-        '~': '/src',
+        "~": "/src",
     },
     symlinks: false,
-    extensions: ['.tsx', '.ts', '.jsx', '.js'],
+    extensions: [".tsx", ".ts", ".jsx", ".js"],
 };
 
 const plugins = [
@@ -113,11 +113,11 @@ const plugins = [
     new ForkTsCheckerWebpackPlugin({
         eslint: {
             enabled: true,
-            files: './src/**/*.{ts,tsx,js,jsx}',
+            files: "./src/**/*.{ts,tsx,js,jsx}",
         },
         issue: {
             exclude: ({ file }) => {
-                return file?.includes('node_modules') || false;
+                return file?.includes("node_modules") || false;
             },
         },
         typescript: {
@@ -128,15 +128,16 @@ const plugins = [
             },
         },
     }),
-    new webpack.ProgressPlugin({ percentBy: 'entries' }),
+    new webpack.ProgressPlugin({ percentBy: "entries" }),
 ];
 
 const output = {
-    publicPath: '/',
+    publicPath: "/",
     clean: true,
-    path: path.join(rootPath, '/build'),
+    path: path.join(rootPath, "/build"),
     pathinfo: false,
     charset: true,
+
 };
 
 module.exports = {
@@ -145,4 +146,8 @@ module.exports = {
     resolve,
     plugins,
     output,
+    experiments: {
+        asyncWebAssembly: true,
+        syncWebAssembly: true,
+    }
 };
