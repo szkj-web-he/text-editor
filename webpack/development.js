@@ -4,7 +4,7 @@ const rootPath = require("./rootPath");
 const path = require("path");
 
 /**
- 
+
  type ConfigProps = webpack.Configuration & {
     devServer: webpackDevServer.Configuration;
 };
@@ -25,7 +25,7 @@ const config = {
         ignored: exclude,
     },
     mode: "development",
-    devtool: "eval-cheap-source-map",
+    devtool: "eval-cheap-module-source-map",
     optimization: {
         runtimeChunk: true,
         minimize: false,

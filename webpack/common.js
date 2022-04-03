@@ -103,8 +103,9 @@ const resolve = {
     alias: {
         "~": "/src",
     },
-    symlinks: false,
     extensions: [".tsx", ".ts", ".jsx", ".js"],
+    modules: [path.resolve(rootPath, './src'), 'node_modules'],
+    mainFields: ['main', 'browser', 'module'],
 };
 
 const plugins = [
