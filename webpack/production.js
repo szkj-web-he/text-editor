@@ -5,6 +5,7 @@ const { entry, plugins, moduleOption, resolve, output, experiments } = require("
 const webpack = require("webpack");
 const command = require("./command");
 const EncodingPlugin = require("webpack-encoding-plugin");
+const { ESBuildMinifyPlugin } = require("esbuild-loader");
 
 // webpack.Configuration
 const config = {
@@ -39,6 +40,10 @@ const config = {
         runtimeChunk: "single",
         minimize: true,
         minimizer: [
+            new ESBuildMinifyPlugin({
+                target: "es2015",
+                css: true, // Apply minification to CSS assets
+            }),
             new TerserPlugin({
                 extractComments: "all",
                 terserOptions: {
@@ -52,7 +57,7 @@ const config = {
             chunks: "all",
         },
     },
-    experiments
+    experiments,
 };
 
 module.exports = config;

@@ -1,3 +1,3 @@
 module.exports = () => ({
-    plugins: [["postcss-preset-env", { minimumVendorImplementations: 3, browsers: ">0.1%" }]],
+    plugins: [["postcss-preset-env", { browsers: ">0.1%" }]],
 });

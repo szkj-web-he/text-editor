@@ -1,0 +1,123 @@
+/*
+ * Roboto font
+ */
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../font/Roboto/9d5bd3l.woff2"), url("../font/Roboto/9d5bd3d.woff"),
+        url("../font/Roboto/9d5bd3a.opentype");
+    font-display: auto;
+    font-style: normal;
+    font-weight: 700;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../font/Roboto/92aa75l.woff2"), url("../font/Roboto/92aa75d.woff"),
+        url("../font/Roboto/92aa75a.opentype");
+    font-display: auto;
+    font-style: italic;
+    font-weight: 700;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../font/Roboto/75987dl.woff2"), url("../font/Roboto/75987dd.woff"),
+        url("../font/Roboto/75987da.opentype");
+    font-display: auto;
+    font-style: italic;
+    font-weight: 400;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../font/Roboto/7f1b26l.woff2"), url("../font/Roboto/7f1b26d.woff"),
+        url("../font/Roboto/7f1b26a.opentype");
+    font-display: auto;
+    font-style: normal;
+    font-weight: 400;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "Roboto-condensed";
+    src: url("../font/Roboto/2876c8l.woff2"), url("../font/Roboto/2876c8d.woff"),
+        url("../font/Roboto/2876c8a.opentype");
+    font-display: auto;
+    font-style: italic;
+    font-weight: 400;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "Roboto-condensed";
+    src: url("../font/Roboto/ea559dl.woff2"), url("../font/Roboto/ea559dd.woff"),
+        url("../font/Roboto/ea559da.opentype");
+    font-display: auto;
+    font-style: normal;
+    font-weight: 400;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "Roboto-condensed";
+    src: url("../font/Roboto/3eafcbl.woff2"), url("../font/Roboto/3eafcbd.woff"),
+        url("../font/Roboto/3eafcba.opentype");
+    font-display: auto;
+    font-style: italic;
+    font-weight: 700;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "Roboto-condensed";
+    src: url("../font/Roboto/386c0dl.woff2"), url("../font/Roboto/386c0dd.woff"),
+        url("../font/Roboto/386c0da.opentype");
+    font-display: auto;
+    font-style: normal;
+    font-weight: 700;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "Roboto-mono";
+    src: url("../font/Roboto/bccc3al.woff2"), url("../font/Roboto/bccc3ad.woff"),
+        url("../font/Roboto/bccc3aa.opentype");
+    font-display: auto;
+    font-style: italic;
+    font-weight: 400;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "Roboto-mono";
+    src: url("../font/Roboto/0fa94el.woff2"), url("../font/Roboto/0fa94ed.woff"),
+        url("../font/Roboto/0fa94ea.opentype");
+    font-display: auto;
+    font-style: normal;
+    font-weight: 400;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "Roboto-mono";
+    src: url("../font/Roboto/3a928cl.woff2"), url("../font/Roboto/3a928cd.woff"),
+        url("../font/Roboto/3a928ca.opentype");
+    font-display: auto;
+    font-style: italic;
+    font-weight: 700;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "Roboto-mono";
+    src: url("../font/Roboto/b13ad7l.woff2"), url("../font/Roboto/b13ad7d.woff"),
+        url("../font/Roboto/b13ad7a.opentype");
+    font-display: auto;
+    font-style: normal;
+    font-weight: 700;
+    font-stretch: normal;
+}

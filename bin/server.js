@@ -5,6 +5,8 @@ const { merge } = require("webpack-merge");
 const webpackDevServer = require("webpack-dev-server");
 const webpack = require("webpack");
 
+require("./createdHtml")();
+
 const rootPath = require("../webpack/rootPath");
 
 const rootDirList = fs.readdirSync(rootPath);
@@ -27,6 +29,12 @@ const getConfig = (config) => {
     config.context = rootPath;
     return config;
 };
+
+
+
+
+
+
 
 const setAnalysisConfig = (config) => {
     if (command.includes("analysis")) {

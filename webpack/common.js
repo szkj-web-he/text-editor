@@ -3,11 +3,11 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const rootPath = require("./rootPath");
-const BabelConfig = require("./findRootBabel");
 const exclude = require("./exclude");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const command = require("./command");
 const htmlPlugin = require("./htmlPlugin");
+const { ProvidePlugin } = require("webpack");
 
 // webpack.Entry
 /**
@@ -17,52 +17,58 @@ const htmlPlugin = require("./htmlPlugin");
  * 做兼容处理
  */
 const entry = {
-    app: ["./src/index.tsx"],
+    app: [path.join(__dirname, "../assets/js/index.js"), "./src/index.tsx"],
 };
 
 //  webpack.ModuleOptions
 const moduleOption = {
     rules: [
         {
-            test: "/.ico$/",
-            type: "asset/source",
+            test: /.ico$/,
+            type: "asset/resource",
             generator: {
-                filename: "/[name][query]",
+                filename: "/[name][ext][query]",
             },
         },
         {
-            test: "/.(woff|woff2|pdf|eot|ttf)$/",
-            type: "asset/source",
+            test: /.(woff2?|pdf|eot|ttf|svg)$/,
+            type: "asset/resource",
             generator: {
-                filename: "assets/[name][query]",
+                filename: "assets/[name][ext][query]",
             },
         },
         {
-            test: /.(png|jpe?g|gif|svg)$/,
+            test: /.(png|jpe?g|gif)$/,
             type: "asset",
             generator: {
                 filename: "assets/[hash][ext][query]",
             },
             parser: {
                 dataUrlCondition: {
-                    maxSize: 20 * 1024, // 20kb
+                    maxSize: 10 * 1024, // 10kb
                 },
             },
         },
-
         {
-            test: /.(j|t)sx?$/,
+            test: /\.jsx?$/,
+            loader: "esbuild-loader",
             exclude,
-            enforce: "pre",
-            use: [
-                {
-                    loader: "babel-loader",
-                    options: BabelConfig,
-                },
-            ],
+            options: {
+                loader: "jsx", // Remove this if you're not using JSX
+                target: "es2015", // Syntax to compile to (see options below for possible values)
+            },
         },
         {
-            test: /\.(sa|sc|c)ss$/,
+            test: /\.tsx?$/,
+            loader: "esbuild-loader",
+            exclude,
+            options: {
+                loader: "tsx", // Or 'ts' if you don't need tsx
+                target: "es2015",
+            },
+        },
+        {
+            test: /\.(sa|sc)ss$/,
             use: [
                 {
                     loader: command.isDev ? "style-loader" : MiniCssExtractPlugin.loader,
@@ -70,7 +76,7 @@ const moduleOption = {
                 {
                     loader: "css-loader",
                     options: {
-                        importLoaders: 2,
+                        importLoaders: 3,
                         modules: {
                             localIdentName: "[local]",
                         },
@@ -84,13 +90,36 @@ const moduleOption = {
                         },
                     },
                 },
-                {
-                    loader: "resolve-url-loader",
-                },
+                { loader: "resolve-url-loader" },
                 {
                     loader: "sass-loader",
                     options: {
                         sourceMap: true,
+                    },
+                },
+            ],
+        },
+        {
+            test: /\.css$/,
+            use: [
+                {
+                    loader: command.isDev ? "style-loader" : MiniCssExtractPlugin.loader,
+                },
+                {
+                    loader: "css-loader",
+                    options: {
+                        importLoaders: 1,
+                        modules: {
+                            localIdentName: "[local]",
+                        },
+                    },
+                },
+                {
+                    loader: "postcss-loader",
+                    options: {
+                        postcssOptions: {
+                            config: path.resolve(__dirname, "../postcss.config.js"),
+                        },
                     },
                 },
             ],
@@ -104,13 +133,16 @@ const resolve = {
         "~": "/src",
     },
     extensions: [".tsx", ".ts", ".jsx", ".js"],
-    modules: [path.resolve(rootPath, './src'), 'node_modules'],
-    mainFields: ['main', 'browser', 'module'],
+    // descriptionFiles: ['package.json', path.join(__dirname, "../package.json")],
+    modules: [path.resolve(rootPath, "./src"), "node_modules"],
+    mainFields: ["main", "browser", "module"],
 };
 
 const plugins = [
     new HtmlWebpackPlugin(htmlPlugin),
-
+    new ProvidePlugin({
+        React: "react",
+    }),
     new ForkTsCheckerWebpackPlugin({
         eslint: {
             enabled: true,
@@ -132,13 +164,17 @@ const plugins = [
     new webpack.ProgressPlugin({ percentBy: "entries" }),
 ];
 
+const getPublicPath = () => {
+    const name = path.basename(rootPath);
+    return name.includes("_") ? `/${name.split("_")[1]}/` : "/";
+};
+
 const output = {
-    publicPath: "/",
+    publicPath: command.isDev ? "/" : getPublicPath(),
     clean: true,
     path: path.join(rootPath, "/build"),
     pathinfo: false,
     charset: true,
-
 };
 
 module.exports = {
@@ -150,5 +186,5 @@ module.exports = {
     experiments: {
         asyncWebAssembly: true,
         syncWebAssembly: true,
-    }
+    },
 };

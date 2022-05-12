@@ -4,7 +4,6 @@ const rootPath = require("./rootPath");
 const path = require("path");
 
 /**
-
  type ConfigProps = webpack.Configuration & {
     devServer: webpackDevServer.Configuration;
 };
@@ -36,15 +35,18 @@ const config = {
     cache: {
         type: "filesystem",
         allowCollectingMemory: true,
-        memoryCacheUnaffected: true,
-        store: "pack",
-        buildDependencies: {
-            // This makes all dependencies of this file - build dependencies
-            config: [__filename],
-            // 默认情况下 webpack 与 loader 是构建依赖。
-        },
+        // memoryCacheUnaffected: true,
+        // store: "pack",
+        // buildDependencies: {
+        //     // This makes all dependencies of this file - build dependencies
+        //     config: [__filename],
+        //     // 默认情况下 webpack 与 loader 是构建依赖。
+        // },
     },
-    experiments: Object.assign({}, experiments, { cacheUnaffected: true }),
+    experiments: Object.assign({}, experiments,
+        // { cacheUnaffected: true }
+        // { lazyCompilation: true }
+    ),
     //测 包文件时打开
     // snapshot: {
     //     managedPaths:[],

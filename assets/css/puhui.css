@@ -1,0 +1,48 @@
+/*
+ * puhui font
+ */
+
+@font-face {
+    font-family: "alipuhui";
+    src: url("../font/Puhui/f81933l.woff2"), url("../font/Puhui/f81933d.woff"),
+        url("../font/Puhui/f81933m.opentype");
+    font-weight: 300;
+    font-display: auto;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "alipuhui";
+    src: url("../font/Puhui/ad7f58l.woff2"), url("../font/Puhui/ad7f58d.woff"),
+        url("../font/Puhui/ad7f58m.opentype");
+    font-weight: 400;
+    font-display: auto;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "alipuhui";
+    src: url("../font/Puhui/1a4373l.woff2"), url("../font/Puhui/1a4373d.woff"),
+        url("../font/Puhui/1a4373m.opentype");
+    font-weight: 500;
+    font-display: auto;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "alipuhui";
+    src: url("../font/Puhui/29a0e1l.woff2"), url("../font/Puhui/29a0e1d.woff"),
+        url("../font/Puhui/29a0e1m.opentype");
+    font-weight: 700;
+    font-display: auto;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "alipuhui";
+    src: url("../font/Puhui/f0b630l.woff2"), url("../font/Puhui/f0b630d.woff"),
+        url("../font/Puhui/f0b630m.opentype");
+    font-weight: 900;
+    font-display: auto;
+    font-stretch: normal;
+}
