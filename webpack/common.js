@@ -31,7 +31,7 @@ const moduleOption = {
             },
         },
         {
-            test: /.(woff2?|pdf|eot|ttf|svg)$/,
+            test: /.(woff2?|pdf|eot|ttf|svg|opentype|otf)$/,
             type: "asset/resource",
             generator: {
                 filename: "assets/[name][ext][query]",
@@ -50,7 +50,16 @@ const moduleOption = {
             },
         },
         {
-            test: /\.jsx?$/,
+            test: /\.js$/,
+            loader: "esbuild-loader",
+            exclude,
+            options: {
+                loader: "js", // Remove this if you're not using JSX
+                target: "es2015", // Syntax to compile to (see options below for possible values)
+            },
+        },
+        {
+            test: /\.jsx$/,
             loader: "esbuild-loader",
             exclude,
             options: {
@@ -59,7 +68,16 @@ const moduleOption = {
             },
         },
         {
-            test: /\.tsx?$/,
+            test: /\.ts$/,
+            loader: "esbuild-loader",
+            exclude,
+            options: {
+                loader: "ts", // Or 'ts' if you don't need tsx
+                target: "es2015",
+            },
+        },
+        {
+            test: /\.tsx$/,
             loader: "esbuild-loader",
             exclude,
             options: {
@@ -76,7 +94,7 @@ const moduleOption = {
                 {
                     loader: "css-loader",
                     options: {
-                        importLoaders: 3,
+                        importLoaders: 2,
                         modules: {
                             localIdentName: "[local]",
                         },
@@ -90,11 +108,11 @@ const moduleOption = {
                         },
                     },
                 },
-                { loader: "resolve-url-loader" },
+                // { loader: "resolve-url-loader" },
                 {
-                    loader: "sass-loader",
+                    loader: "fast-sass-loader",
                     options: {
-                        sourceMap: true,
+                        // sourceMap: true,
                     },
                 },
             ],
@@ -142,6 +160,7 @@ const plugins = [
     new HtmlWebpackPlugin(htmlPlugin),
     new ProvidePlugin({
         React: "react",
+        ReactDOM: "react-dom",
     }),
     new ForkTsCheckerWebpackPlugin({
         eslint: {
