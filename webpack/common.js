@@ -108,11 +108,11 @@ const moduleOption = {
                         },
                     },
                 },
-                // { loader: "resolve-url-loader" },
+                { loader: "resolve-url-loader" },
                 {
-                    loader: "fast-sass-loader",
+                    loader: "sass-loader",
                     options: {
-                        // sourceMap: true,
+                        sourceMap: true,
                     },
                 },
             ],
@@ -151,7 +151,6 @@ const resolve = {
         "~": "/src",
     },
     extensions: [".tsx", ".ts", ".jsx", ".js"],
-    // descriptionFiles: ['package.json', path.join(__dirname, "../package.json")],
     modules: [path.resolve(rootPath, "./src"), "node_modules"],
     mainFields: ["main", "browser", "module"],
 };

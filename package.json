@@ -1,6 +1,6 @@
 {
     "name": "he-webpack",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "dependencies": {
         "@types/core-js": "^2.5.5",
         "@types/webpack": "^5.28.0",
@@ -16,7 +16,6 @@
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-react": "^7.28.0",
         "eslint-plugin-react-hooks": "^4.3.0",
-        "fast-sass-loader": "^2.0.1",
         "fork-ts-checker-webpack-plugin": "^6.5.0",
         "html-webpack-plugin": "^5.5.0",
         "mini-css-extract-plugin": "^2.5.2",

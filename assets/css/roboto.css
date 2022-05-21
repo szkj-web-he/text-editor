@@ -4,8 +4,31 @@
 
 @font-face {
     font-family: "Roboto";
-    src: url("../font/Roboto/9d5bd3l.woff2"), url("../font/Roboto/9d5bd3d.woff"),
-        url("../font/Roboto/9d5bd3a.opentype");
+    src: url("../font/Roboto/2fba6cl.woff2") format("woff2"),
+        url("../font/Roboto/2fba6cd.woff") format("woff"),
+        url("../font/Roboto/2fba6ca.opentype") format("opentype");
+    font-display: auto;
+    font-style: normal;
+    font-weight: 900;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../font/Roboto/311c1dl.woff2") format("woff2"),
+        url("../font/Roboto/311c1dd.woff") format("woff"),
+        url("../font/Roboto/311c1da.opentype") format("opentype");
+    font-display: auto;
+    font-style: italic;
+    font-weight: 900;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../font/Roboto/9d5bd3l.woff2") format("woff2"),
+        url("../font/Roboto/9d5bd3d.woff") format("woff"),
+        url("../font/Roboto/9d5bd3a.opentype") format("opentype");
     font-display: auto;
     font-style: normal;
     font-weight: 700;
@@ -14,8 +37,9 @@
 
 @font-face {
     font-family: "Roboto";
-    src: url("../font/Roboto/92aa75l.woff2"), url("../font/Roboto/92aa75d.woff"),
-        url("../font/Roboto/92aa75a.opentype");
+    src: url("../font/Roboto/92aa75l.woff2") format("woff2"),
+        url("../font/Roboto/92aa75d.woff") format("woff"),
+        url("../font/Roboto/92aa75a.opentype") format("opentype");
     font-display: auto;
     font-style: italic;
     font-weight: 700;
@@ -24,8 +48,9 @@
 
 @font-face {
     font-family: "Roboto";
-    src: url("../font/Roboto/75987dl.woff2"), url("../font/Roboto/75987dd.woff"),
-        url("../font/Roboto/75987da.opentype");
+    src: url("../font/Roboto/75987dl.woff2") format("woff2"),
+        url("../font/Roboto/75987dd.woff") format("woff"),
+        url("../font/Roboto/75987da.opentype") format("opentype");
     font-display: auto;
     font-style: italic;
     font-weight: 400;
@@ -34,68 +59,53 @@
 
 @font-face {
     font-family: "Roboto";
-    src: url("../font/Roboto/7f1b26l.woff2"), url("../font/Roboto/7f1b26d.woff"),
-        url("../font/Roboto/7f1b26a.opentype");
+    src: url("../font/Roboto/dec5ecl.woff2") format("woff2"),
+        url("../font/Roboto/dec5ecd.woff") format("woff"),
+        url("../font/Roboto/dec5eca.opentype") format("opentype");
     font-display: auto;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     font-stretch: normal;
 }
 
 @font-face {
-    font-family: "Roboto-condensed";
-    src: url("../font/Roboto/2876c8l.woff2"), url("../font/Roboto/2876c8d.woff"),
-        url("../font/Roboto/2876c8a.opentype");
+    font-family: "Roboto";
+    src: url("../font/Roboto/eb6e64l.woff2") format("woff2"),
+        url("../font/Roboto/eb6e64d.woff") format("woff"),
+        url("../font/Roboto/eb6e64a.opentype") format("opentype");
     font-display: auto;
     font-style: italic;
-    font-weight: 400;
+    font-weight: 300;
     font-stretch: normal;
 }
 
 @font-face {
-    font-family: "Roboto-condensed";
-    src: url("../font/Roboto/ea559dl.woff2"), url("../font/Roboto/ea559dd.woff"),
-        url("../font/Roboto/ea559da.opentype");
+    font-family: "Roboto";
+    src: url("../font/Roboto/00cc08l.woff2") format("woff2"),
+        url("../font/Roboto/00cc08d.woff") format("woff"),
+        url("../font/Roboto/00cc08a.opentype") format("opentype");
     font-display: auto;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     font-stretch: normal;
 }
 
 @font-face {
-    font-family: "Roboto-condensed";
-    src: url("../font/Roboto/3eafcbl.woff2"), url("../font/Roboto/3eafcbd.woff"),
-        url("../font/Roboto/3eafcba.opentype");
+    font-family: "Roboto";
+    src: url("../font/Roboto/71b9cdl.woff2") format("woff2"),
+        url("../font/Roboto/71b9cdd.woff") format("woff"),
+        url("../font/Roboto/71b9cda.opentype") format("opentype");
     font-display: auto;
     font-style: italic;
-    font-weight: 700;
+    font-weight: 500;
     font-stretch: normal;
 }
 
 @font-face {
-    font-family: "Roboto-condensed";
-    src: url("../font/Roboto/386c0dl.woff2"), url("../font/Roboto/386c0dd.woff"),
-        url("../font/Roboto/386c0da.opentype");
-    font-display: auto;
-    font-style: normal;
-    font-weight: 700;
-    font-stretch: normal;
-}
-
-@font-face {
-    font-family: "Roboto-mono";
-    src: url("../font/Roboto/bccc3al.woff2"), url("../font/Roboto/bccc3ad.woff"),
-        url("../font/Roboto/bccc3aa.opentype");
-    font-display: auto;
-    font-style: italic;
-    font-weight: 400;
-    font-stretch: normal;
-}
-
-@font-face {
-    font-family: "Roboto-mono";
-    src: url("../font/Roboto/0fa94el.woff2"), url("../font/Roboto/0fa94ed.woff"),
-        url("../font/Roboto/0fa94ea.opentype");
+    font-family: "Roboto";
+    src: url("../font/Roboto/7f1b26l.woff2") format("woff2"),
+        url("../font/Roboto/7f1b26d.woff") format("woff"),
+        url("../font/Roboto/7f1b26a.opentype") format("opentype");
     font-display: auto;
     font-style: normal;
     font-weight: 400;
@@ -103,21 +113,27 @@
 }
 
 @font-face {
-    font-family: "Roboto-mono";
-    src: url("../font/Roboto/3a928cl.woff2"), url("../font/Roboto/3a928cd.woff"),
-        url("../font/Roboto/3a928ca.opentype");
+    font-family: "Roboto";
+    src: url("../font/Roboto/444a91l.woff2") format("woff2"),
+        url("../font/Roboto/444a91d.woff") format("woff"),
+        url("../font/Roboto/444a91a.opentype") format("opentype");
     font-display: auto;
-    font-style: italic;
-    font-weight: 700;
+    font-style: normal;
+    font-weight: 200;
     font-stretch: normal;
 }
 
 @font-face {
-    font-family: "Roboto-mono";
-    src: url("../font/Roboto/b13ad7l.woff2"), url("../font/Roboto/b13ad7d.woff"),
-        url("../font/Roboto/b13ad7a.opentype");
+    font-family: "Roboto";
+    src: url("../font/Roboto/5f6199l.woff2") format("woff2"),
+        url("../font/Roboto/5f6199d.woff") format("woff"),
+        url("../font/Roboto/5f6199a.opentype") format("opentype");
     font-display: auto;
-    font-style: normal;
-    font-weight: 700;
+    font-style: italic;
+    font-weight: 200;
     font-stretch: normal;
+}
+
+.font-roboto {
+    font-family: "Roboto", sans-serif;
 }

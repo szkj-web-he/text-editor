@@ -8,7 +8,7 @@
 4. sass
 5. 支持自定义 webpack 和 babel 配置
 
-> npm i @szkj-web-he/webpack -D
+> npm i he-webpack -D
 
 ## 如何使用这个包
 
@@ -33,6 +33,8 @@
 
 5. 集成了 Roboto 字体
    使用方法: font-family: "Roboto";
+   也可以使用 class => '.font-roboto'
 
 6. 集成了 Alibaba PuHuiTi 字体
    使用方法： font-family: "alipuhui";
+   也可以使用 class => '.font-puhui'
