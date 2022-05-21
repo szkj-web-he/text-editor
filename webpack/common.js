@@ -39,19 +39,14 @@ const moduleOption = {
         {
             test: /.(png|jpe?g|gif)$/,
             type: "asset",
+            generator: {
+                filename: "assets/[name][ext][query]",
+            },
             parser: {
                 dataUrlCondition: {
                     maxSize: 10 * 1024, // 10kb
                 },
             },
-            use: [
-                {
-                    type: "asset/resource",
-                    generator: {
-                        filename: "assets/[name][ext][query]",
-                    },
-                },
-            ],
         },
         {
             test: /\.js$/,
@@ -169,10 +164,6 @@ const plugins = [
         ReactDOM: "react-dom",
     }),
     new ForkTsCheckerWebpackPlugin({
-        eslint: {
-            enabled: true,
-            files: "./src/**/*.{ts,tsx,js,jsx}",
-        },
         issue: {
             exclude: ({ file }) => {
                 return file?.includes("node_modules") || false;
