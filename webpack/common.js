@@ -19,7 +19,6 @@ const { ProvidePlugin } = require("webpack");
 const entry = {
     app: [path.join(__dirname, "../assets/js/index.js"), "./src/index.tsx"],
 };
-
 //  webpack.ModuleOptions
 const moduleOption = {
     rules: [
@@ -40,20 +39,26 @@ const moduleOption = {
         {
             test: /.(png|jpe?g|gif)$/,
             type: "asset",
-            generator: {
-                filename: "assets/[hash][ext][query]",
-            },
             parser: {
                 dataUrlCondition: {
                     maxSize: 10 * 1024, // 10kb
                 },
             },
+            use: [
+                {
+                    type: "asset/resource",
+                    generator: {
+                        filename: "assets/[name][ext][query]",
+                    },
+                },
+            ],
         },
         {
             test: /\.js$/,
             loader: "esbuild-loader",
             exclude,
             options: {
+                charset: "utf8",
                 loader: "js", // Remove this if you're not using JSX
                 target: "es2015", // Syntax to compile to (see options below for possible values)
             },
@@ -63,6 +68,7 @@ const moduleOption = {
             loader: "esbuild-loader",
             exclude,
             options: {
+                charset: "utf8",
                 loader: "jsx", // Remove this if you're not using JSX
                 target: "es2015", // Syntax to compile to (see options below for possible values)
             },
@@ -72,8 +78,10 @@ const moduleOption = {
             loader: "esbuild-loader",
             exclude,
             options: {
+                charset: "utf8",
                 loader: "ts", // Or 'ts' if you don't need tsx
                 target: "es2015",
+                tsconfigRaw: require(path.join(rootPath, "./tsconfig.json")),
             },
         },
         {
@@ -81,8 +89,10 @@ const moduleOption = {
             loader: "esbuild-loader",
             exclude,
             options: {
+                charset: "utf8",
                 loader: "tsx", // Or 'ts' if you don't need tsx
                 target: "es2015",
+                tsconfigRaw: require(path.join(rootPath, "./tsconfig.json")),
             },
         },
         {
@@ -108,12 +118,8 @@ const moduleOption = {
                         },
                     },
                 },
-                { loader: "resolve-url-loader" },
                 {
                     loader: "sass-loader",
-                    options: {
-                        sourceMap: true,
-                    },
                 },
             ],
         },
@@ -151,8 +157,9 @@ const resolve = {
         "~": "/src",
     },
     extensions: [".tsx", ".ts", ".jsx", ".js"],
-    modules: [path.resolve(rootPath, "./src"), "node_modules"],
     mainFields: ["main", "browser", "module"],
+    symlinks: false,
+    cacheWithContext: false,
 };
 
 const plugins = [
